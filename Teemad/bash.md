@@ -217,7 +217,7 @@ Loo uus kataloog.
   ```
   rm -r kataloog
   ```
-  **NB!** Käsureal kustutatud failid ja kataloogid ei liigu prügikasti, neid ei saa lihtsalt taastada. Ole eriti ettevaatlik käsuga:
+  **NB!** Käsureal kustutatud failid ja kataloogid ei liigu prügikasti, neid ei saa lihtsalt taastada. **Ole eriti ettevaatlik käsuga:**
   ```
   rm -rf /
   ```
@@ -251,9 +251,13 @@ Loo uus kataloog.
   - Viimased kolm: teiste kasutajate õigused
 - Näide:
   ```
-  chmod +x skript.sh
+  chmod +x skript.sh 
   ```
-  Lisab käivitusõiguse.
+  Lisab käivitusõiguse (u+x - user'ile).
+  ```
+  chmod -x skript.sh 
+  ```
+  Võtab käivitusõiguse ära (u-x - user'ilt).
   ```
   chmod 644 fail.txt
   ```
