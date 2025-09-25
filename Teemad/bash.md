@@ -1036,7 +1036,7 @@ Kõik skriptid peaks olema 'scripts' kataloogis, andmed 'data' kataloogis ja tul
 4. Kasutades `nano` editori kirjuta script nimega `generate_data.py`, mis genereerib 200 juhuslikku täisarvu (vahemikus 1..100).
 5. Kasutades oma lemmiks tekstiredaktorit kirjuta script nimega `generate_data.sh`, mis käivitab `generate_data.py` faili N (N=10) korda ja salvestab tulemused `data` kataloogi. Faili nimed võiks olla `data1.txt`, `data2.txt` jne.
 
-Mõlema skripti puhul pöörake tähelepanu ka dokumentatsioonile.
+Mõlema skripti puhul pöörake tähelepanu ka dokumentatsioonile: mida tegid, miks tegid jm vajalik info.
 
 6. Üle kõikide `data` kataloogi failide leia mitu korda igat unikaalset arvu esineb (kasutades `cat`, `sort`, `uniq` käske) - salvesta tulemused faili `results/summary_total_unique_numbers_counted.txt`.
 7. Muuda `readme.md` faili, lisades sinna lühikese kirjelduse oma bash eksperimendist, lisa sinna ka kõik kasutatud käsud.
