@@ -397,7 +397,7 @@ Failinimede valikul tasub järgida mõningaid häid tavasid, et vältida hilisem
 - Selline formaat tagab, et failid sorteeruvad alati korrektselt kronoloogilises järjekorras.
 - Näide käsureal:
   ```bash
-  touch raport_$(date +%Y-%m-%d).txt
+  touch raport_$(date +%Y-%m-%d).txt  # **NB!** $ märgile järgnev käivitatakse kõige esimesena. 
   ```
   või ilma sidekriipsudeta:
   ```bash
