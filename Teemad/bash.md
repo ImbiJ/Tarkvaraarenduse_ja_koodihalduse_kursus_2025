@@ -192,6 +192,7 @@ Suhtelisi teed on mugav kasutada, kui liigud failisüsteemis ringi ja ei taha ig
 | `chmod`   | Muuda faili õigusi                     | `chmod +x skript.sh`              |
 | `chown`   | Muuda faili omanikku                   | `chown kasutaja:grupp fail.txt`   |
 | `ln`      | Loo sümboolne link faili või kataloogi | `ln -s sihtfail link_nimi`        |
+| `./`      | käivitab faili                         | `./sihtfail`                      |
 
 Failisüsteemiga töötamise käsud võimaldavad luua, kustutada, kopeerida, liigutada ja muuta faile ning katalooge. Allpool on olulisemad käsud koos näidetega ja selgitustega.
 
