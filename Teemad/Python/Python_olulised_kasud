@@ -5,3 +5,5 @@ len() - tagastab objekti pikkuse (elementide arvu). Näide: len("Python") tagast
 type() - tagastab objekti tüübi. Näide: type(123) tagastab <class 'int'>.
 int() ja str() - kasutatakse tüübimuundeks. int() teisendab täisarvuks, str() stringiks. Näide: int("10") tagastab 10; str(10) tagastab "10".
 
+
+
