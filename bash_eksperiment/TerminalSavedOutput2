@@ -1,0 +1,244 @@
+Last login: Mon Sep 29 19:35:26 on ttys000
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+(base) WJ-arvuti:~ imbi$ cd imbi/Magistrantuur/Git_repod/Tarkvaraarendus
+-bash: cd: imbi/Magistrantuur/Git_repod/Tarkvaraarendus: No such file or directory
+(base) WJ-arvuti:~ imbi$  
+(base) WJ-arvuti:~ imbi$ cd Magistrantuur/Git_repod/Tarkvaraarendus
+(base) WJ-arvuti:Tarkvaraarendus imbi$ mkdir bash_eksperiment
+(base) WJ-arvuti:Tarkvaraarendus imbi$ pwd
+/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus
+(base) WJ-arvuti:Tarkvaraarendus imbi$ ls
+Data
+Kodutood
+LICENSE
+README.md
+Tarkvaraarenduse_ja_koodihalduse_kursus_2025.Rproj
+Teemad
+bash_eksperiment
+(base) WJ-arvuti:Tarkvaraarendus imbi$ cd bash_eksperiment
+(base) WJ-arvuti:bash_eksperiment imbi$ pwd
+/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment
+(base) WJ-arvuti:bash_eksperiment imbi$ mkdir data
+(base) WJ-arvuti:bash_eksperiment imbi$ mdir scripts
+-bash: mdir: command not found
+(base) WJ-arvuti:bash_eksperiment imbi$ ls
+data
+(base) WJ-arvuti:bash_eksperiment imbi$ mkdir scripts
+(base) WJ-arvuti:bash_eksperiment imbi$ mkdir results
+(base) WJ-arvuti:bash_eksperiment imbi$ pwd
+/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment
+(base) WJ-arvuti:bash_eksperiment imbi$ ls
+data	results	scripts
+(base) WJ-arvuti:bash_eksperiment imbi$ touch readme.md
+(base) WJ-arvuti:bash_eksperiment imbi$ ls
+data		readme.md	results		scripts
+(base) WJ-arvuti:bash_eksperiment imbi$ cd scripts
+(base) WJ-arvuti:scripts imbi$ pwd
+/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts
+(base) WJ-arvuti:scripts imbi$ nano generate_data.py
+(base) WJ-arvuti:scripts imbi$ cd..
+-bash: cd..: command not found
+(base) WJ-arvuti:scripts imbi$ cd ..
+(base) WJ-arvuti:bash_eksperiment imbi$ scripts
+-bash: scripts: command not found
+(base) WJ-arvuti:bash_eksperiment imbi$ cd scripts
+(base) WJ-arvuti:scripts imbi$ nano generate_data.sh
+(base) WJ-arvuti:scripts imbi$ chmod +x scripts/generate_data.sh
+chmod: scripts/generate_data.sh: No such file or directory
+(base) WJ-arvuti:scripts imbi$ chmod +x generate_data.sh
+(base) WJ-arvuti:scripts imbi$ #eelmise käsuga tegin skripti käivitatavaks
+(base) WJ-arvuti:scripts imbi$ generate_data.sh
+-bash: generate_data.sh: command not found
+(base) WJ-arvuti:scripts imbi$ ./generate_data.sh
+Käivitan faili generate_data.py 1. korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 2. korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 3. korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 4. korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 5. korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 6. korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 7. korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 8. korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 9. korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 10. korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Kõik failid on slavestatud kataloogi data/
+(base) WJ-arvuti:scripts imbi$ nano generate_data.sh
+(base) WJ-arvuti:scripts imbi$ generate_data.sh
+-bash: generate_data.sh: command not found
+(base) WJ-arvuti:scripts imbi$ chmod +x generate_data.sh
+(base) WJ-arvuti:scripts imbi$ generate_data.sh
+-bash: generate_data.sh: command not found
+(base) WJ-arvuti:scripts imbi$ ./generate_data.sh
+Käivitan faili generate_data.py 1 korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 2 korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 3 korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 4 korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 5 korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 6 korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 7 korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 8 korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 9 korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Käivitan faili generate_data.py 10 korda
+./generate_data.sh: line 8: data/data.txt: No such file or directory
+Kõik failid on slavestatud kataloogi data/
+(base) WJ-arvuti:scripts imbi$ nano generate_data.sh
+(base) WJ-arvuti:scripts imbi$ chmod +x generate_data.sh
+(base) WJ-arvuti:scripts imbi$ ./generate_data.sh
+Käivitan faili generate_data.py 1 korda
+./generate_data.sh: line 8: data/data1.txt: No such file or directory
+Käivitan faili generate_data.py 2 korda
+./generate_data.sh: line 8: data/data2.txt: No such file or directory
+Käivitan faili generate_data.py 3 korda
+./generate_data.sh: line 8: data/data3.txt: No such file or directory
+Käivitan faili generate_data.py 4 korda
+./generate_data.sh: line 8: data/data4.txt: No such file or directory
+Käivitan faili generate_data.py 5 korda
+./generate_data.sh: line 8: data/data5.txt: No such file or directory
+Käivitan faili generate_data.py 6 korda
+./generate_data.sh: line 8: data/data6.txt: No such file or directory
+Käivitan faili generate_data.py 7 korda
+./generate_data.sh: line 8: data/data7.txt: No such file or directory
+Käivitan faili generate_data.py 8 korda
+./generate_data.sh: line 8: data/data8.txt: No such file or directory
+Käivitan faili generate_data.py 9 korda
+./generate_data.sh: line 8: data/data9.txt: No such file or directory
+Käivitan faili generate_data.py 10 korda
+./generate_data.sh: line 8: data/data10.txt: No such file or directory
+Kõik failid on slavestatud kataloogi data/
+(base) WJ-arvuti:scripts imbi$ nano generate_data.sh
+(base) WJ-arvuti:scripts imbi$ chmod +x generate_data.sh
+(base) WJ-arvuti:scripts imbi$ ./generate_data.sh
+Käivitan faili generate_data.py 1 korda
+python3: can't open file '/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/scripts/generate_data.py': [Errno 2] No such file or directory
+Käivitan faili generate_data.py 2 korda
+python3: can't open file '/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/scripts/generate_data.py': [Errno 2] No such file or directory
+Käivitan faili generate_data.py 3 korda
+python3: can't open file '/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/scripts/generate_data.py': [Errno 2] No such file or directory
+Käivitan faili generate_data.py 4 korda
+python3: can't open file '/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/scripts/generate_data.py': [Errno 2] No such file or directory
+Käivitan faili generate_data.py 5 korda
+python3: can't open file '/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/scripts/generate_data.py': [Errno 2] No such file or directory
+Käivitan faili generate_data.py 6 korda
+python3: can't open file '/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/scripts/generate_data.py': [Errno 2] No such file or directory
+Käivitan faili generate_data.py 7 korda
+python3: can't open file '/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/scripts/generate_data.py': [Errno 2] No such file or directory
+Käivitan faili generate_data.py 8 korda
+python3: can't open file '/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/scripts/generate_data.py': [Errno 2] No such file or directory
+Käivitan faili generate_data.py 9 korda
+python3: can't open file '/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/scripts/generate_data.py': [Errno 2] No such file or directory
+Käivitan faili generate_data.py 10 korda
+python3: can't open file '/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/scripts/generate_data.py': [Errno 2] No such file or directory
+Kõik failid on slavestatud kataloogi data/
+(base) WJ-arvuti:scripts imbi$ nano generate_data.sh
+(base) WJ-arvuti:scripts imbi$ chmod +x generate_data.sh
+(base) WJ-arvuti:scripts imbi$ ./generate_data.sh
+Käivitan faili generate_data.py 1 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    arvud <- sample(1:100, 200, replace = TRUE)
+                     ^
+SyntaxError: invalid syntax
+Käivitan faili generate_data.py 2 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    arvud <- sample(1:100, 200, replace = TRUE)
+                     ^
+SyntaxError: invalid syntax
+Käivitan faili generate_data.py 3 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    arvud <- sample(1:100, 200, replace = TRUE)
+                     ^
+SyntaxError: invalid syntax
+Käivitan faili generate_data.py 4 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    arvud <- sample(1:100, 200, replace = TRUE)
+                     ^
+SyntaxError: invalid syntax
+Käivitan faili generate_data.py 5 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    arvud <- sample(1:100, 200, replace = TRUE)
+                     ^
+SyntaxError: invalid syntax
+Käivitan faili generate_data.py 6 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    arvud <- sample(1:100, 200, replace = TRUE)
+                     ^
+SyntaxError: invalid syntax
+Käivitan faili generate_data.py 7 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    arvud <- sample(1:100, 200, replace = TRUE)
+                     ^
+SyntaxError: invalid syntax
+Käivitan faili generate_data.py 8 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    arvud <- sample(1:100, 200, replace = TRUE)
+                     ^
+SyntaxError: invalid syntax
+Käivitan faili generate_data.py 9 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    arvud <- sample(1:100, 200, replace = TRUE)
+                     ^
+SyntaxError: invalid syntax
+Käivitan faili generate_data.py 10 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    arvud <- sample(1:100, 200, replace = TRUE)
+                     ^
+SyntaxError: invalid syntax
+Kõik failid on slavestatud kataloogi data/
+(base) WJ-arvuti:scripts imbi$ nano generate_data.sh
+(base) WJ-arvuti:scripts imbi$ nano generate_data.py
+(base) WJ-arvuti:scripts imbi$ chmod +x generate_data.sh
+(base) WJ-arvuti:scripts imbi$ ./generate_data.sh
+./generate_data.sh: line 3: N: command not found
+Käivitan faili generate_data.py 1 korda
+  File "/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment/scripts/generate_data.py", line 1
+    for i in $(seq 1 200)
+             ^
+SyntaxError: invalid syntax
+Kõik failid on slavestatud kataloogi data/
+(base) WJ-arvuti:scripts imbi$ nano generate_data.py
+(base) WJ-arvuti:scripts imbi$ chmod +x generate_data.sh
+(base) WJ-arvuti:scripts imbi$ ./generate_data.sh
+./generate_data.sh: line 3: N: command not found
+Käivitan faili generate_data.py 1 korda
+Kõik failid on slavestatud kataloogi data/
+(base) WJ-arvuti:scripts imbi$ nano generate_data.sh
+(base) WJ-arvuti:scripts imbi$ chmod +x generate_data.sh
+(base) WJ-arvuti:scripts imbi$ ./generate_data.sh
+Käivitan faili generate_data.py 1 korda
+Käivitan faili generate_data.py 2 korda
+Käivitan faili generate_data.py 3 korda
+Käivitan faili generate_data.py 4 korda
+Käivitan faili generate_data.py 5 korda
+Käivitan faili generate_data.py 6 korda
+Käivitan faili generate_data.py 7 korda
+Käivitan faili generate_data.py 8 korda
+Käivitan faili generate_data.py 9 korda
+Käivitan faili generate_data.py 10 korda
+Kõik failid on slavestatud kataloogi data/
+(base) WJ-arvuti:scripts imbi$ # Sul on kaks eraldi tasandit:
+(base) WJ-arvuti:scripts imbi$ Python skript (.py) → Python süntaksiga
+-bash: syntax error near unexpected token `('
+(base) WJ-arvuti:scripts imbi$ Bash skript (.sh) → Bash käsud
+-bash: syntax error near unexpected token `('
+(base) WJ-arvuti:scripts imbi$ # Bash skript võib lihtsalt käivitada Python skripti N korda. Python skriptis ei tohi olla Bash tsükleid, ainult Python kood.
+(base) WJ-arvuti:scripts imbi$ 

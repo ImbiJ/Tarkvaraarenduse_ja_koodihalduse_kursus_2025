@@ -1,0 +1,38 @@
+Last login: Mon Sep 29 19:35:26 on ttys000
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+(base) WJ-arvuti:~ imbi$ cd imbi/Magistrantuur/Git_repod/Tarkvaraarendus
+-bash: cd: imbi/Magistrantuur/Git_repod/Tarkvaraarendus: No such file or directory
+(base) WJ-arvuti:~ imbi$  
+(base) WJ-arvuti:~ imbi$ cd Magistrantuur/Git_repod/Tarkvaraarendus
+(base) WJ-arvuti:Tarkvaraarendus imbi$ mkdir bash_eksperiment
+(base) WJ-arvuti:Tarkvaraarendus imbi$ pwd
+/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus
+(base) WJ-arvuti:Tarkvaraarendus imbi$ ls
+Data
+Kodutood
+LICENSE
+README.md
+Tarkvaraarenduse_ja_koodihalduse_kursus_2025.Rproj
+Teemad
+bash_eksperiment
+(base) WJ-arvuti:Tarkvaraarendus imbi$ cd bash_eksperiment
+(base) WJ-arvuti:bash_eksperiment imbi$ pwd
+/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment
+(base) WJ-arvuti:bash_eksperiment imbi$ mkdir data
+(base) WJ-arvuti:bash_eksperiment imbi$ mdir scripts
+-bash: mdir: command not found
+(base) WJ-arvuti:bash_eksperiment imbi$ ls
+data
+(base) WJ-arvuti:bash_eksperiment imbi$ mkdir scripts
+(base) WJ-arvuti:bash_eksperiment imbi$ mkdir results
+(base) WJ-arvuti:bash_eksperiment imbi$ pwd
+/Users/imbi/Magistrantuur/Git_repod/Tarkvaraarendus/bash_eksperiment
+(base) WJ-arvuti:bash_eksperiment imbi$ ls
+data	results	scripts
+(base) WJ-arvuti:bash_eksperiment imbi$ touch readme.md
+(base) WJ-arvuti:bash_eksperiment imbi$ ls
+data		readme.md	results		scripts
+(base) WJ-arvuti:bash_eksperiment imbi$ 
