@@ -32,12 +32,9 @@ kasutajaliides neljaks põhiosaks.
 
 -   Failid / **Joonised** / Paketid / **Abi** / jne...
 
-Vaata: <https://rstudio.github.io/cheatsheets/html/rstudio-ide.html> põhjalikuma
-ülevaate saamiseks.
+Vaata: <https://rstudio.github.io/cheatsheets/html/rstudio-ide.html> põhjalikuma ülevaate saamiseks.
 
-See on kaheosalise õppetunni teine osa, mis tutvustab R-i ja ggplot2-te. Kui sa
-ei tunne veel R-i põhisisüntaksit, andmetüüpe ja tidyverse'i, siis vaata esmalt
-esimest osa: [R-basic.Rmd](R-basic.Rmd).
+See on kaheosalise õppetunni teine osa, mis tutvustab R-i ja ggplot2-te. Kui sa ei tunne veel R-i põhisisüntaksit, andmetüüpe ja tidyverse'i, siis vaata esmalt esimest osa: [R-basic.Rmd](R-basic.Rmd).
 
 ## Tidyverse laadimine
 
@@ -53,8 +50,7 @@ library(tidyverse)
 
 ## Andmete lugemine failist
 
-R toetab mitmeid failiformaate andmete lugemiseks ja salvestamiseks. Levinumad
-formaadid:
+R toetab mitmeid failiformaate andmete lugemiseks ja salvestamiseks. Levinumad formaadid:
 
 -   CSV (komaga eraldatud väärtused)
 -   TSV (tabiga eraldatud väärtused)
@@ -72,10 +68,7 @@ andmestikku "**Memory Test on Drugged Islanders Data**".
 
 Andmestiku kirjeldus
 
-:   Eksperiment uuris ärevusvastaste ravimite mõju mälulisele meenutusele
-    olukorras, kus katsealuseid suunati meenutama kas rõõmsaid või kurbi
-    mälestusi. Katse viidi läbi simuleeritud osalejatega (nn „Islander’id“), kes
-    matkivad inimkäitumist väliste mõjutuste suhtes.
+:   Eksperiment uuris ärevusvastaste ravimite mõju mälulisele meenutusele olukorras, kus katsealuseid suunati meenutama kas rõõmsaid või kurbi mälestusi. Katse viidi läbi simuleeritud osalejatega (nn „Islander’id“), kes matkivad inimkäitumist väliste mõjutuste suhtes.
 
     ### Ravimid ja doosid
 
@@ -180,7 +173,24 @@ erinevate ravimite ja nende dooside mõju mälu taastamisele.
 
 ```{r}
 # Loo vanuserühma veerg
-
+data_csv <- read_csv("../../Data/Islander_data.csv")
+library(dplyr)
+# uued vanusegrupid
+data <- data_csv %>%
+  mutate(
+    age_group = case_when(
+    age < 30 ~ "Noor", 
+    # siin tilde (~) tähendab “TINGIMUS ~ TULEMUS” ehk
+    # “kui tingimus on tõene, siis väärtus on see”
+    # Näiteks:
+        # Kui age = 25, siis age < 30 on TRUE → "Noor".
+        # Kui age = 40, siis esimene ei sobi, aga teine sobib → "Keskealine".
+        # Kui age = 65, läheb kolmanda reani → "Seenior".
+    age >= 30 & age <= 50 ~ "Keskealine",
+    age > 50 ~ "Seenior",
+    TRUE ~ NA_character_   # igaks juhuks, kui midagi ei sobi
+    )
+  )
 
 ```
 
@@ -194,27 +204,17 @@ andmed, esteetikad, geomid, skaalad ja teemad.
 1.  **data**: Iga joonise alus. Määrad, millist andmestikku soovid
     visualiseerida.
 
-2.  **aesthetics(aes)**: Esteetikad on joonise visuaalsed omadused, nagu x- ja
-    y-telg, värv, suurus, kuju ja läbipaistvus. Määrad, millised muutujad
-    andmestikust vastavad millistele esteetikatele.
+2.  **aesthetics(aes)**: Esteetikad on joonise visuaalsed omadused, nagu x- ja y-telg, värv, suurus, kuju ja läbipaistvus. Määrad, millised muutujad andmestikust vastavad millistele esteetikatele.
 
-3.  **geom**: Geomid (geomeetrilised objektid) on tegelikud joonise elemendid,
-    nagu punktid, jooned ja tulbad. Erinevad geomid tähistavad erinevat tüüpi
-    jooniseid, nt hajuvusdiagramm, joondiagramm või tulpdiagramm. Ühele
-    joonisele saab lisada mitu geom-i.
+3.  **geom**: Geomid (geomeetrilised objektid) on tegelikud joonise elemendid, nagu punktid, jooned ja tulbad. 
+Erinevad geomid tähistavad erinevat tüüpi jooniseid, nt hajuvusdiagramm, joondiagramm või tulpdiagramm. Ühele joonisele saab lisada mitu geom-i.
 
-4.  **scale**: Skaalad määravad, kuidas andmeväärtused teisendatakse
-    esteetilisteks omadusteks. Näiteks värvid, suurused või kujundid. Skaalasid
-    saab kohandada joonise välimuse muutmiseks.
+4.  **scale**: Skaalad määravad, kuidas andmeväärtused teisendatakse esteetilisteks omadusteks. Näiteks värvid, suurused või kujundid. Skaalasid saab kohandada joonise välimuse muutmiseks.
 
-5.  **theme**: Kujundab joonise mitte-andmelisi aspekte, nagu taust, ruudustik,
-    telgede sildid ja legend. Kujundust (`theme`) muutes saab joonise välimust
-    muuta.
+5.  **theme**: Kujundab joonise mitte-andmelisi aspekte, nagu taust, ruudustik, telgede sildid ja legend. Kujundust (`theme`) muutes saab joonise välimust muuta.
 
-ggplot2 modulaarse lähenemise puhul alustad andmete ja esteetikate määramisest,
-seejärel lisad geom-e, skaalasid ja teemasid vastavalt vajadusele. Selline
-kihiline lähenemine võimaldab luua väga erinevaid jooniseid, kombineerides ja
-kohandades neid komponente.
+ggplot2 modulaarse lähenemise puhul alustad andmete ja esteetikate määramisest, seejärel lisad geom-e, skaalasid ja teemasid vastavalt vajadusele. 
+Selline kihiline lähenemine võimaldab luua väga erinevaid jooniseid, kombineerides ja kohandades neid komponente.
 
 Näide, mis demonstreerib modulaarset lähenemist:
 
@@ -239,23 +239,19 @@ iris %>%
   theme_minimal()
 ```
 
-Selles näites määrame esmalt andmed ja esteetikad, lisame punktgeom-i, kohandame
-värviskaalat ja rakendame minimaalse teema. Tulemuseks on hajuvusdiagramm, mis
-näitab seost õielehe pikkuse ja laiuse vahel, punktid on värvitud vastavalt
-õielehe pikkusele.
+Selles näites määrame esmalt andmed ja esteetikad, lisame punktgeom-i, kohandame värviskaalat ja rakendame minimaalse teema.
+
+Tulemuseks on hajuvusdiagramm, mis näitab seost õielehe pikkuse ja laiuse vahel, punktid on värvitud vastavalt õielehe pikkusele.
 
 ## Esteetikad ggplot2-s
 
-Esteetikad on joonise elementide visuaalsed omadused. Need aitavad esile tuua
-andmete mustreid ja seoseid. ggplot2-s seotakse andmestiku muutujad
-esteetikatega, et luua seos andmete ja joonise elementide vahel. Levinumad
-esteetikad on `x` ja `y` telg, `color`, `size`, `shape`, `group` ja
-`transparency`.
+Esteetikad on joonise elementide visuaalsed omadused. Need aitavad esile tuua andmete mustreid ja seoseid. ggplot2-s seotakse andmestiku muutujad esteetikatega, et luua seos andmete ja joonise elementide vahel. 
+
+Levinumad esteetikad on `x` ja `y` telg, `color`, `size`, `shape`, `group` ja `transparency`.
 
 ### Esteetikate määramine
 
-Loome hajuvusdiagrammi, kus `age` on x-teljel, `Diff` y-teljel ja `Drug` värvi
-esteetikana:
+Loome hajuvusdiagrammi, kus `age` on x-teljel, `Diff` y-teljel ja `Drug` värvi esteetikana:
 
 ```{r}
 # Hajuvusdiagramm, kus esteetikad on seotud muutujatega
@@ -267,9 +263,9 @@ scatter_plot
 
 ### Esteetikate muutmine ja geom-is ülekirjutamine
 
-Esteetika omadusi saab muuta otse geom-is. See võimaldab muuta konkreetsete
-joonise elementide välimust. Loome hajuvusdiagrammi, kus punktid on suuremad ja
-läbipaistvamad:
+Esteetika omadusi saab muuta otse geom-is. See võimaldab muuta konkreetsete joonise elementide välimust. 
+
+Loome hajuvusdiagrammi, kus punktid on suuremad ja läbipaistvamad:
 
 ```{r}
 # Muuda punktide suurust ja läbipaistvust geom-is
@@ -285,21 +281,17 @@ scatter_plot_data_related_aes
 
 ```
 
-Selles näites suurendasime punktide suurust ja muutsime need poolläbipaistvaks,
-määrates `size` ja `alpha` geom_point() sees. Esteetikate muutmine geom-is
-võimaldab algseid seoseid üle kirjutada ja joonise välimust täpsemalt
-kontrollida.
+Selles näites suurendasime punktide suurust ja muutsime need poolläbipaistvaks, määrates `size` ja `alpha` geom_point() sees. 
+
+Esteetikate muutmine geom-is võimaldab algseid seoseid üle kirjutada ja joonise välimust täpsemalt kontrollida.
 
 ## Erinevate geom-ide kasutamine
 
-Selles osas demonstreerime erinevaid geom-e lihtsa näidisandmestikuga. Iga geom
-esindab kindlat tüüpi joonist ja nende sobivus sõltub andmete tüübist (arvuline
-vs. kategooriline) ning sellest, millist seost soovid visualiseerida.
+Selles osas demonstreerime erinevaid geom-e lihtsa näidisandmestikuga. Iga geom esindab kindlat tüüpi joonist ja nende sobivus sõltub andmete tüübist (arvuline vs. kategooriline) ning sellest, millist seost soovid visualiseerida.
 
 ### Hajuvusdiagramm (scatterplot, geom_point)
 
-Hajuvusdiagramm näitab kahe arvulise muutuja seost, joonistades punktid nende x-
-ja y-koordinaatidele. Kasulik mustrite, trendide või erandite leidmiseks.
+Hajuvusdiagramm näitab kahe arvulise muutuja seost, joonistades punktid nende x- ja y-koordinaatidele. Kasulik mustrite, trendide või erandite leidmiseks.
 
 ```{r fig.width=6, fig.height=6}
 # Kasuta Islander andmestikku näitena
@@ -314,8 +306,7 @@ scatter_plot
 
 ### Joondiagramm (line plot, geom_line)
 
-Joondiagramm ühendab andmepunktid joontega, et näidata kahe arvulise muutuja
-vahelist seost. Kasulik trendide näitamiseks ajas või muutuvas suuruses.
+Joondiagramm ühendab andmepunktid joontega, et näidata kahe arvulise muutuja vahelist seost. Kasulik trendide näitamiseks ajas või muutuvas suuruses.
 
 ```{r}
 # Kasuta pressure andmestikku näitena
@@ -330,9 +321,9 @@ line_plot
 
 ### Tulpdiagramm (geom_bar) ja veerudiagramm (geom_col)
 
-Tulpdiagramm näitab kategooriliste andmete sagedust või arvu, veerudiagramm
-näitab arvulise muutuja väärtust iga kategooria kohta. Mõlemad sobivad
-kategooriliste ja arvuliste muutujate seoste visualiseerimiseks.
+Tulpdiagramm näitab kategooriliste andmete sagedust või arvu, veerudiagramm näitab arvulise muutuja väärtust iga kategooria kohta.
+
+Mõlemad sobivad kategooriliste ja arvuliste muutujate seoste visualiseerimiseks.
 
 ```{r}
 # Kasuta Islander andmestikku näitena
@@ -353,8 +344,7 @@ column_plot
 
 ### Histogramm (geom_histogram)
 
-Histogramm jagab arvulised andmed vahemikeks (bin-ideks) ja näitab iga vahemiku
-sagedust. Kasulik arvulise muutuja jaotuse visualiseerimiseks.
+Histogramm jagab arvulised andmed vahemikeks (bin-ideks) ja näitab iga vahemiku sagedust. Kasulik arvulise muutuja jaotuse visualiseerimiseks.
 
 ```{r}
 # Histogramm vanuse kohta Islander andmestikus
@@ -367,6 +357,7 @@ histogram_plot
 ### Kastdiagramm (geom_boxplot)
 
 Kastdiagramm näitab arvulise muutuja jaotust erinevate kategooriate lõikes.
+
 Kasulik jaotuste võrdlemiseks ja erandite leidmiseks kategooriates.
 
 ```{r}
@@ -377,17 +368,15 @@ box_plot <- ggplot(Isd, aes(x = Drug, y = Diff)) +
 box_plot
 ```
 
-Need on vaid mõned näited paljudest ggplot2 geom-idest. Õige geom-i valik aitab
-luua informatiivseid ja visuaalselt atraktiivseid jooniseid, mis toovad esile
-andmete seosed.
+Need on vaid mõned näited paljudest ggplot2 geom-idest. 
+
+Õige geom-i valik aitab luua informatiivseid ja visuaalselt atraktiivseid jooniseid, mis toovad esile andmete seosed.
 
 ## Positsiooni kohandused ja mitme kihi lisamine
 
 ### Punktide hajutamine (position = "jitter")
 
-Hajuvusdiagrammides võivad punktid kattuda, mistõttu on raske üksikuid vaatlusi
-eristada. Selle lahendamiseks saab kasutada positsiooni kohandust `jitter`, mis
-liigutab punkte juhuslikult, et kattuvust vähendada.
+Hajuvusdiagrammides võivad punktid kattuda, mistõttu on raske üksikuid vaatlusi eristada. Selle lahendamiseks saab kasutada positsiooni kohandust `jitter`, mis liigutab punkte juhuslikult, et kattuvust vähendada.
 
 ```{r}
 
@@ -399,14 +388,13 @@ jittered_plot <- ggplot(Isd, aes(x = Drug, y = Diff)) +
 jittered_plot
 ```
 
-Selles näites on punktid hajutatud, et vähendada kattuvust ja muuta vaatluste
-jaotus kategooriates paremini nähtavaks.
+Selles näites on punktid hajutatud, et vähendada kattuvust ja muuta vaatluste jaotus kategooriates paremini nähtavaks.
 
 ### Mitme kihi (geom-i) lisamine
 
 Ühele joonisele saab lisada mitu geom-i, et luua keerukamaid visualiseeringuid.
-Näiteks saab hajuvusdiagrammi kombineerida silutud joonega, mis näitab üldist
-trendi, ning lisada tekstisildid konkreetsete punktide tähistamiseks.
+
+Näiteks saab hajuvusdiagrammi kombineerida silutud joonega, mis näitab üldist trendi, ning lisada tekstisildid konkreetsete punktide tähistamiseks.
 
 ```{r}
 # Kasuta mtcars andmestikku näitena
@@ -430,39 +418,52 @@ scatter_plot_annotate <- scatter_plot_smooth +
 scatter_plot_annotate
 ```
 
-Selles näites loodi esmalt hajuvusdiagramm mpg vs. wt ja lisati silutud joon
-geom_smooth abil. Seejärel märgiti konkreetseid andmepunkte tekstiga geom_text
-abil. Mitme geom-i kombineerimine võimaldab luua informatiivsemaid ja
-visuaalselt atraktiivsemaid jooniseid.
+Selles näites loodi esmalt hajuvusdiagramm mpg vs. wt ja lisati silutud joon geom_smooth abil. 
+
+Seejärel märgiti konkreetseid andmepunkte tekstiga geom_text abil. 
+
+Mitme geom-i kombineerimine võimaldab luua informatiivsemaid ja visuaalselt atraktiivsemaid jooniseid.
 
 ### Ülesanne:
 
-Kasuta allolevat lahtrit, et korrata seni tehtud samme. Koosta joonis, kus kuvad
-`Islander_data` andmeid `Drug` ja `Diff` järgi. Kasuta `geom_violin`-it, mida
-see näitab ja kuidas seda tõlgendada? Lisa sinna ka `geom_point`, tee see väga
-heledaks (läbipaistvaks), kasuta positsiooni `jitter`. Rohkem võimalusi leiad
+Kasuta allolevat lahtrit, et korrata seni tehtud samme. 
+
+Koosta joonis, kus kuvad `Islander_data` andmeid `Drug` ja `Diff` järgi. Kasuta `geom_violin`-it, mida see näitab ja kuidas seda tõlgendada? 
+
+Lisa sinna ka `geom_point`, tee see väga heledaks (läbipaistvaks), kasuta positsiooni `jitter`. 
+
+Rohkem võimalusi leiad
 [data-transformations](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 spikrilt.
 
 ```{r fig.width=8, fig.height=6}
-
-
+library(ggplot2)
+library(dplyr)
+ggplot(data_csv, aes(x = Drug, y = Diff, fill = Drug)) + 
+        #x-teljel on ravimid, y-teljel Diff, violinid värvitud ravimi järgi.
+  geom_violin(trim = FALSE) +    # trim = FALSE näitab kogu andmete jaotust
+  geom_jitter(width = 0.2, alpha = 0.5) + # isab punktid, et näha individuaalseid andmeid.
+  labs(
+    title = "Diff mälu skooride jaotus iga ravimi kohta",
+    x = "Drug",
+    y = "Diff (Memory After - Memory Before)"
+  ) +
+  theme_minimal(base_size = 14) + # lihtne joonis
+  theme(legend.position = "none")
 
 ```
 
 ## Arvuliste ja diskreetsete muutujate skaleerimine
 
-Muutujate skaleerimine võimaldab nende väärtuste vahemikku muuta, et andmeid
-paremini visualiseerida või võrrelda erinevate ühikutega muutujaid.
+Muutujate skaleerimine võimaldab nende väärtuste vahemikku muuta, et andmeid paremini visualiseerida või võrrelda erinevate ühikutega muutujaid.
 
 ### Arvuliste muutujate skaleerimine
 
-Arvuliste muutujate puhul saab kasutada `scale_x_continuous()` ja
-`scale_y_continuous()` x- ja y-telje skaala muutmiseks. mtcars andmestik sobib
-hästi selle näitamiseks.
+Arvuliste muutujate puhul saab kasutada `scale_x_continuous()` ja `scale_y_continuous()` x- ja y-telje skaala muutmiseks. 
 
-Näide: Hobujõu logaritmiline teisendus. Loome hajuvusdiagrammi mpg vs. hp ja
-skaleerime y-telje logaritmiliselt:
+mtcars andmestik sobib hästi selle näitamiseks.
+
+Näide: Hobujõu logaritmiline teisendus. Loome hajuvusdiagrammi mpg vs. hp ja skaleerime y-telje logaritmiliselt:
 
 ```{r}
 
@@ -474,20 +475,15 @@ scatter_plot_scaled <- ggplot(mtcars, aes(x = mpg, y = hp)) +
 scatter_plot_scaled
 ```
 
-Selles näites aitab hobujõu logaritmiline teisendus tuua esile seoseid
-kütusesäästlikkuse (mpg) ja mootori võimsuse (hp) vahel, mis muidu võivad
-originaalskaalal varjatuks jääda.
+Selles näites aitab hobujõu logaritmiline teisendus tuua esile seoseid kütusesäästlikkuse (mpg) ja mootori võimsuse (hp) vahel, mis muidu võivad originaalskaalal varjatuks jääda.
 
 ### Diskreetsete muutujate skaleerimine
 
-Diskreetsete muutujate puhul saab kasutada `scale_x_discrete()` ja
-`scale_y_discrete()` kategooriate järjekorra või välimuse muutmiseks. mtcars
-andmestikus saab uurida, kuidas silindrite arv (cyl) mõjutab kütusesäästlikkust
-(mpg).
+Diskreetsete muutujate puhul saab kasutada `scale_x_discrete()` ja `scale_y_discrete()` kategooriate järjekorra või välimuse muutmiseks.
 
-Näide: Silindrite kategooriate ümberjärjestamine mediaani mpg järgi. Loome
-kastdiagrammi silindrite arvu ja mpg kohta ning järjestame silindrite
-kategooriad mediaani mpg järgi:
+mtcars andmestikus saab uurida, kuidas silindrite arv (cyl) mõjutab kütusesäästlikkust (mpg).
+
+Näide: Silindrite kategooriate ümberjärjestamine mediaani mpg järgi. Loome kastdiagrammi silindrite arvu ja mpg kohta ning järjestame silindrite kategooriad mediaani mpg järgi:
 
 ```{r}
 # Arvuta iga silindrite kategooria mediaan mpg
@@ -508,18 +504,15 @@ box_plot_scaled <- ggplot(mtcars, aes(x = factor(cyl), y = mpg)) +
 box_plot_scaled
 ```
 
-Selles näites aitab silindrite arvu ümberjärjestamine mediaani mpg järgi tuua
-esile erinevused kütusesäästlikkuses erineva mootorisuurusega autodel. See
-lihtsustab võrdlust.
+Selles näites aitab silindrite arvu ümberjärjestamine mediaani mpg järgi tuua esile erinevused kütusesäästlikkuses erineva mootorisuurusega autodel. See lihtsustab võrdlust.
 
-Muutujate skaleerimine parandab jooniste loetavust ja aitab tuua esile varjatud
-mustreid. Õigete teisenduste rakendamine muudab visualiseeringud tõhusamaks.
+Muutujate skaleerimine parandab jooniste loetavust ja aitab tuua esile varjatud mustreid. Õigete teisenduste rakendamine muudab visualiseeringud tõhusamaks.
 
 ## Värviskaala muutmine
 
-Värviskaala abil saab joonisel visualiseerida lisamuutujat, lisades andmetesse
-täiendava mõõtme. Selles näites loome kastdiagrammi silindrite arvu (**`cyl`**)
-ja kütusesäästlikkuse (**`mpg`**) kohta, kus punktide värv näitab mootori mahtu
+Värviskaala abil saab joonisel visualiseerida lisamuutujat, lisades andmetesse täiendava mõõtme. 
+
+Selles näites loome kastdiagrammi silindrite arvu (**`cyl`**) ja kütusesäästlikkuse (**`mpg`**) kohta, kus punktide värv näitab mootori mahtu
 (**`disp`**).
 
 ```{r}
@@ -534,27 +527,26 @@ box_plot_color_scaled <- ggplot(mtcars, aes(x = factor(cyl), y = mpg)) +
 box_plot_color_scaled
 ```
 
-Selles näites kasutatakse **`scale_fill_gradient`** ja
-**`scale_color_gradient`** värviskaala muutmiseks mootori mahu (**`disp`**)
-alusel. Kastdiagrammid ja hajutatud punktid on värvitud sinisest (väiksem maht)
-punaseni (suurem maht), mis annab lisainfot silindrite arvu ja mpg seosele.
+Selles näites kasutatakse **`scale_fill_gradient`** ja **`scale_color_gradient`** värviskaala muutmiseks mootori mahu (**`disp`**) alusel. 
+Kastdiagrammid ja hajutatud punktid on värvitud sinisest (väiksem maht) punaseni (suurem maht), mis annab lisainfot silindrite arvu ja mpg seosele.
 
-Värviskaala rakendamine muudab visualiseeringud informatiivsemaks ja aitab
-paremini mõista andmete seoseid. See on eriti kasulik keerukate seoste
-avastamisel ja esitamisel.
+Värviskaala rakendamine muudab visualiseeringud informatiivsemaks ja aitab paremini mõista andmete seoseid. 
+
+See on eriti kasulik keerukate seoste avastamisel ja esitamisel.
 
 ## Faktorandmete ümberkodeerimine ja ümberjärjestamine
 
-Faktorid on kategoorilised muutujad, millel on piiratud arv väärtusi. ggplot2-s
-saab faktoreid ümberkodeerida ja ümber järjestada, et visualiseeringuid
-parandada.
+Faktorid on kategoorilised muutujad, millel on piiratud arv väärtusi.
+
+ggplot2-s saab faktoreid ümberkodeerida ja ümber järjestada, et visualiseeringuid parandada.
 
 ### Ümberkodeerimine
 
-Ümberkodeerimine tähendab faktori tasemete muutmist. Selleks saab kasutada
-`forcats` paketti (kuulub tidyverse'i). Funktsioon `fct_recode()` võimaldab
-tasemeid ümber nimetada. Vaata ka
-[spikrit](https://rstudio.github.io/cheatsheets/factors.pdf).
+Ümberkodeerimine tähendab faktori tasemete muutmist.
+
+Selleks saab kasutada `forcats` paketti (kuulub tidyverse'i). Funktsioon `fct_recode()` võimaldab tasemeid ümber nimetada. 
+s
+Vaata ka [spikrit](https://rstudio.github.io/cheatsheets/factors.pdf).
 
 ```{r}
 # Laadi vajalikud paketid
@@ -570,14 +562,13 @@ Isd_refactored <- Isd %>%
 head(Isd_refactored)
 ```
 
-Selles näites kodeerisime `Drug` muutuja tasemed tähtedest tegelike ravimite
-nimedeks.
+Selles näites kodeerisime `Drug` muutuja tasemed tähtedest tegelike ravimite nimedeks.
 
 ### Ümberjärjestamine
 
-Ümberjärjestamine tähendab faktori tasemete järjekorra muutmist. Selleks saab
-kasutada `fct_reorder()` funktsiooni, mis järjestab tasemed teise muutuja
-väärtuste alusel.
+Ümberjärjestamine tähendab faktori tasemete järjekorra muutmist. 
+
+Selleks saab kasutada `fct_reorder()` funktsiooni, mis järjestab tasemed teise muutuja väärtuste alusel.
 
 ```{r}
 # Loo uus veerg, kus Drug_name on ümberjärjestatud Diff väärtuse järgi
@@ -587,11 +578,9 @@ Isd_reordered <- Isd_refactored %>%
 head(Isd_reordered)
 ```
 
-Selles näites järjestati `Drug` tasemed Diff-i mediaani alusel. See on kasulik,
-kui soovid joonisel kategooriad tähenduslikult järjestada.
+Selles näites järjestati `Drug` tasemed Diff-i mediaani alusel. See on kasulik, kui soovid joonisel kategooriad tähenduslikult järjestada.
 
-Nüüd loome tulpdiagrammi ümberjärgestatud Drug_reordered ja refactored Drug_name
-muutujaga:
+Nüüd loome tulpdiagrammi ümberjärgestatud Drug_reordered ja refactored Drug_name muutujaga:
 
 ```{r}
 # Tulpdiagramm ümberjärgestatud Drug ja Happy_Sad_group muutujatega
@@ -603,18 +592,17 @@ bar_plot_reordered <- ggplot(Isd_reordered, aes(x = Drug_reordered, fill = Happy
 bar_plot_reordered
 ```
 
-Selles joonises kasutasime refactored ja ümberjärgestatud Drug muutujat, et luua
-informatiivsem visualiseering. Faktorite ümberkodeerimine ja ümberjärgestamine
-parandab jooniste loetavust ja tõhusust.
+Selles joonises kasutasime refactored ja ümberjärgestatud Drug muutujat, et luua informatiivsem visualiseering. 
+
+Faktorite ümberkodeerimine ja ümberjärgestamine parandab jooniste loetavust ja tõhusust.
 
 ## Jooniste täiustamine pealkirjade, teljesiltide, piiride ja teemadega
 
-Pealkirjade, teljesiltide, piiride ja teema lisamine muudab joonised
-informatiivsemaks ja visuaalselt atraktiivsemaks. Selles osas näitame, kuidas
-joonist täiustada nende võimalustega.
+Pealkirjade, teljesiltide, piiride ja teema lisamine muudab joonised informatiivsemaks ja visuaalselt atraktiivsemaks. 
 
-Loome hajuvusdiagrammi **`Sepal.Length`** vs **`Sepal.Width`** ja kasutame
-**`Petal.Length`** värviskaalana **`iris`** andmestikus:
+Selles osas näitame, kuidas joonist täiustada nende võimalustega.
+
+Loome hajuvusdiagrammi **`Sepal.Length`** vs **`Sepal.Width`** ja kasutame **`Petal.Length`** värviskaalana **`iris`** andmestikus:
 
 ```{r}
 
@@ -662,8 +650,9 @@ scatter_plot_limited
 
 ### Teema kohandamine
 
-Joonise välimust saab muuta teema abil. `theme()` funktsioon võimaldab muuta
-erinevaid joonise osi, nt teksti suurust, fonti, taustavärve ja ruudustikku:
+Joonise välimust saab muuta teema abil. 
+
+`theme()` funktsioon võimaldab muuta erinevaid joonise osi, nt teksti suurust, fonti, taustavärve ja ruudustikku:
 
 ```{r}
 scatter_plot_custom_theme <- scatter_plot_limited +
@@ -680,17 +669,15 @@ scatter_plot_custom_theme <- scatter_plot_limited +
 scatter_plot_custom_theme
 ```
 
-Pealkirjade, teljesiltide, piiride ja teema lisamine muudab joonised
-informatiivsemaks ja visuaalselt atraktiivsemaks. Vaata
-[spikrit](https://rstudio.github.io/cheatsheets/data-visualization.pdf)
-lisateemade jaoks.
+Pealkirjade, teljesiltide, piiride ja teema lisamine muudab joonised informatiivsemaks ja visuaalselt atraktiivsemaks. 
+
+Vaata [spikrit](https://rstudio.github.io/cheatsheets/data-visualization.pdf) lisateemade jaoks.
 
 ## Jooniste eksportimine ja salvestamine ggsave abil
 
-`ggsave()` on mugav funktsioon ggplot2 jooniste salvestamiseks erinevates
-failiformaatides, nt PNG, PDF, SVG või TIFF. `ggsave()` abil saab hõlpsalt
-salvestada kvaliteetseid jooniseid raportitesse, esitlustesse või
-publikatsioonidesse.
+`ggsave()` on mugav funktsioon ggplot2 jooniste salvestamiseks erinevates failiformaatides, nt PNG, PDF, SVG või TIFF. 
+
+`ggsave()` abil saab hõlpsalt salvestada kvaliteetseid jooniseid raportitesse, esitlustesse või publikatsioonidesse.
 
 Joonise salvestamiseks PNG-failina kasuta `ggsave()` funktsiooni:
 
@@ -705,13 +692,11 @@ ggsave(
 )
 ```
 
-Selles näites salvestasime `scatter_plot_example` joonise PNG-failina laiusega 8
-tolli, kõrgusega 5 tolli ja resolutsiooniga 300 DPI. `width`, `height` ja `dpi`
-parameetreid saab muuta pildi suuruse ja kvaliteedi määramiseks. Kui `plot =`
-argumenti pole, salvestatakse vaikimisi viimane aktiivne joonis.
+Selles näites salvestasime `scatter_plot_example` joonise PNG-failina laiusega 8 tolli, kõrgusega 5 tolli ja resolutsiooniga 300 DPI. 
 
-Teise failiformaadi jaoks muuda failinime laiendit. Näiteks PDF-i
-salvestamiseks:
+`width`, `height` ja `dpi` parameetreid saab muuta pildi suuruse ja kvaliteedi määramiseks. Kui `plot =` argumenti pole, salvestatakse vaikimisi viimane aktiivne joonis.
+
+Teise failiformaadi jaoks muuda failinime laiendit. Näiteks PDF-i salvestamiseks:
 
 ```{r}
 # Salvesta joonis PDF-failina
@@ -722,13 +707,13 @@ ggsave(
 )
 ```
 
-`ggsave()` abil saab ggplot2 jooniseid hõlpsalt eksportida ja salvestada
-erinevates failiformaatides, et neid jagada või dokumentidesse lisada.
+`ggsave()` abil saab ggplot2 jooniseid hõlpsalt eksportida ja salvestada erinevates failiformaatides, et neid jagada või dokumentidesse lisada.
 
 ## Mitme joonise kombineerimine patchwork paketiga
 
-`patchwork` pakett võimaldab ggplot2 jooniseid lihtsalt ühte paigutusse
-kombineerida. See on kasulik erinevate visualiseeringute kõrvutamiseks või
+`patchwork` pakett võimaldab ggplot2 jooniseid lihtsalt ühte paigutusse kombineerida. 
+
+See on kasulik erinevate visualiseeringute kõrvutamiseks või
 keerukamate jooniste loomiseks.
 
 Loome esmalt mõned näidisjoonised mtcars andmestiku põhjal:
@@ -765,11 +750,11 @@ combined_plot <- scatter_plot + bar_plot + box_plot + plot_layout(ncol = 1)
 combined_plot
 ```
 
-Selles näites kombineerisime kolm joonist ühte veergu. Paigutust saab muuta
-`ncol` ja `nrow` parameetritega `plot_layout()` funktsioonis.
+Selles näites kombineerisime kolm joonist ühte veergu. 
 
-Legendide kogumiseks ja globaalse pealkirja, alapealkirja ning allkirja
-lisamiseks kasuta `plot_annotation()` funktsiooni:
+Paigutust saab muuta`ncol` ja `nrow` parameetritega `plot_layout()` funktsioonis.
+
+Legendide kogumiseks ja globaalse pealkirja, alapealkirja ning allkirja lisamiseks kasuta `plot_annotation()` funktsiooni:
 
 ```{r fig.height=8, fig.width=10}
 # Kogu legendid ja lisa globaalne pealkiri, alapealkiri ja allkiri
@@ -785,16 +770,11 @@ combined_plot_annotated <- scatter_plot / (bar_plot + box_plot) +
 combined_plot_annotated
 ```
 
-patchwork paketiga saab mitut ggplot2 joonist ühte paigutusse kombineerida, mis
-lihtsustab visualiseeringute võrdlemist ja esitamist.
+patchwork paketiga saab mitut ggplot2 joonist ühte paigutusse kombineerida, mis lihtsustab visualiseeringute võrdlemist ja esitamist.
 
 ### Ülesanne:
 
-Nüüd on sinu kord särada. Lase fantaasial lennata ja uuri Islander
-näidisandmestikku. Koosta oma visualiseering. Kasuta nii palju jooniseid, värve
-ja teemasid, kui soovid. Alusta järk-järgult, nii on vigu lihtsam leida ja
-parandada. Võid kasutada ka oma andmeid. Proovi jõuda avaldamiskõlbliku
-kujutiseni (*ilma* legendita).
+Nüüd on sinu kord särada. Lase fantaasial lennata ja uuri Islander näidisandmestikku. Koosta oma visualiseering. Kasuta nii palju jooniseid, värve ja teemasid, kui soovid. Alusta järk-järgult, nii on vigu lihtsam leida ja parandada. Võid kasutada ka oma andmeid. Proovi jõuda avaldamiskõlbliku kujutiseni (*ilma* legendita).
 
 Uuri rohkem võimalusi erinevatelt
 [spikritelt](https://posit.co/resources/cheatsheets/).
