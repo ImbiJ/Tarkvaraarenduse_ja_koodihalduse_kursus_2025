@@ -61,6 +61,8 @@ Mõnes teises andmebaasis võib olla `#` asemel `>`, mis tähendab, et oled ühe
 ```
 
 Siia saad kirjutada SQL käske ja päringuid. Sessiooni lõpetamiseks kirjuta `\q` ja vajuta Enter.
+Kui oled kogemata väljunud, siis sisenemiseks pead uuesti sisestama
+docker exec -it postgres-sql psql -U postgres
 
 Et näha kõiki käske, mis psql-is saad teha, kirjuta `\?`.Sellest väljumiseks vajuta klaviatuuril q-klahvi.
 Mõned kasulikud käsud:
