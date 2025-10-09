@@ -285,7 +285,9 @@ See võimaldab meil kuvada kõige kallimad tooted esimesena või vastupidi.
 
 ```sql
 -- kirjuta oma vastus siia
-
+SELECT *
+FROM sales.customers
+ORDER BY last_name ASC;
 ```
 
 ---
