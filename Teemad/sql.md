@@ -248,6 +248,8 @@ See tagastab ainult veerud `product_name` ja `list_price`, jättes ülejäänud 
 
 ```sql
 -- kirjuta oma vastus siia
+SELECT * 
+FROM sales.customers;
 
 ```
 
