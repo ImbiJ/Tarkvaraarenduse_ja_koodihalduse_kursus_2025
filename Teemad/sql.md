@@ -426,7 +426,9 @@ LIMIT 10;
 
 ```sql
 -- kirjuta oma vastus siia
-
+SELECT *
+FROM sales.customers
+WHERE city = 'New York';
 ```
 
 ---
@@ -484,7 +486,11 @@ ORDER BY average_price DESC;
 
 ```sql
 -- kirjuta oma vastus siia
-
+SELECT staff_id, COUNT(*) AS order_count
+FROM sales.orders
+GROUP BY staff_id
+ORDER BY order_count DESC
+LIMIT 5;
 ```
 
 ---
