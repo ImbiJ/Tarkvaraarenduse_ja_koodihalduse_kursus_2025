@@ -512,6 +512,10 @@ SELECT p.product_name, c.category_name
 FROM production.products p
 JOIN production.categories c ON p.category_id = c.category_id;
 ```
+production.products p - p siin on antud sellele grupile aliaseks
+production.categories c - siin on c antud sellele grupile aliaseks
+p.categry_id on product category'st, mis on c.category_id-le foreign key, kuid c.categpry ise on oma tabeli primary key
+
 
 - `p` ja `c` on tabelite lühendid (aliased), mis muudavad päringu loetavamaks ja lühemaks.
 - Lühendite kasutamine on vajalik, kui ühendad mitu tabelit, millel võivad olla samanimelised veerud. Näiteks `category_id` eksisteerib mõlemas tabelis.
