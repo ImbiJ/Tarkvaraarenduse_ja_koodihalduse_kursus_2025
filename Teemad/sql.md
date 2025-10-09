@@ -51,7 +51,7 @@ postgres=#
 ```
 Kus `postgres` on aktiivne andmebaas ja `#` tähendab, et oled ühendatud kasutajana `postgres` (admin). 
 Mõnes teises andmebaasis võib olla `#` asemel `>`, mis tähendab, et oled ühendatud tavakasutajana.
-`=` asemel võib olla ka teisi sümboleid, mis näitavad, et oled pooleli mingi käsu sisestamisega.
+`=` asemel võib olla ka teisi sümboleid, mis näitavad, et **oled pooleli mingi käsu sisestamisega**.
 ```
 - -- käsk on pooleli
 ' -- avatud üksi jutumärk pooleli
@@ -62,9 +62,11 @@ Mõnes teises andmebaasis võib olla `#` asemel `>`, mis tähendab, et oled ühe
 
 Siia saad kirjutada SQL käske ja päringuid. Sessiooni lõpetamiseks kirjuta `\q` ja vajuta Enter.
 Kui oled kogemata väljunud, siis sisenemiseks pead uuesti sisestama
+```
 docker exec -it postgres-sql psql -U postgres
-
+```
 Et näha kõiki käske, mis psql-is saad teha, kirjuta `\?`.Sellest väljumiseks vajuta klaviatuuril q-klahvi.
+
 Mõned kasulikud käsud:
 - `\l` → näita kõiki andmebaase
 - `\c andmebaas` → ühendu andmebaasiga
@@ -73,12 +75,16 @@ Mõned kasulikud käsud:
 
 Käivitades Docker konteineri sees PostgreSQL andmebaasi mootori, oleme loonud keskkonna, kus saame hallata ja pärida struktureeritud andmeid. Andmebaasi mootor, nagu PostgreSQL, on tarkvara, mis vastutab andmete talletamise, haldamise ja neile ligipääsu võimaldamise eest. 
 
+Iga 1 rida on 1 kirje.
+
 Relatsiooniline andmebaas on seejuures süsteem, mis salvestab andmeid tabelite kujul, kus read esindavad kirjeid ja veerud omadusi. See struktuur võimaldab andmeid loogiliselt organiseerida ja omavahel seostada, muutes nende töötlemise ja analüüsimise tõhusaks. Näiteks võib tabel "customers" sisaldada infot klientide kohta, samas kui tabel "orders" salvestab nende tehtud ostud, ning nende kahe tabeli vahel saab luua seoseid, et andmeid omavahel siduda.
 
-### Primary Key ja Foreign Key
-- **Primary Key** on veerg või veergude kombinatsioon, mis unikaalselt identifitseerib iga rea tabelis. See tagab, et tabelis ei ole kahte rida sama väärtusega primary key veerus ning väärtus ei saa olla tühi (NULL). Näiteks tabelis "customers" võib veerg `customer_id` olla primary key, kuna see identifitseerib iga kliendi unikaalselt.
+Seoste tekitamine:
 
-- **Foreign Key** on veerg, mis viitab teise tabeli primary key-le, luues tabelite vahel seose. See tagab andmete terviklikkuse, kuna foreign key väärtus peab kas vastama seotud tabeli primary key väärtusele või olema tühi (NULL). Näiteks tabelis "orders" võib veerg `customer_id` olla foreign key, mis viitab tabeli "customers" veerule `customer_id`, sidudes iga tellimuse vastava kliendiga.
+### Primary Key ja Foreign Key
+- **Primary Key** on veerg või veergude kombinatsioon, mis unikaalselt identifitseerib iga rea tabelis. See tagab, et tabelis ei ole kahte rida sama väärtusega primary key veerus ning väärtus ei saa olla tühi (NULL). Näiteks tabelis "customers" võib veerg **`customer_id` olla primary key**, kuna see identifitseerib iga kliendi unikaalselt.
+
+- **Foreign Key** on veerg, mis **viitab teise tabeli primary key-le**, luues tabelite vahel seose. See tagab andmete terviklikkuse, kuna **foreign key väärtus peab kas vastama seotud tabeli primary key väärtusele või olema tühi (NULL)**. Näiteks tabelis "orders" võib veerg `customer_id` olla foreign key, mis viitab tabeli "customers" veerule `customer_id`, sidudes iga tellimuse vastava kliendiga.
 
 ---
 
