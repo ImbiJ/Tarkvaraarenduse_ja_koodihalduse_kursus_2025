@@ -62,7 +62,8 @@ Mõnes teises andmebaasis võib olla `#` asemel `>`, mis tähendab, et oled ühe
 
 Siia saad kirjutada SQL käske ja päringuid. Sessiooni lõpetamiseks kirjuta `\q` ja vajuta Enter.
 
-Et näha kõiki käske, mis psql-is saad teha, kirjuta `\?`. Mõned kasulikud käsud:
+Et näha kõiki käske, mis psql-is saad teha, kirjuta `\?`.Sellest väljumiseks vajuta klaviatuuril q-klahvi.
+Mõned kasulikud käsud:
 - `\l` → näita kõiki andmebaase
 - `\c andmebaas` → ühendu andmebaasiga
 - `\dt` → näita kõiki aktiivse andmebaasi tabeleid
