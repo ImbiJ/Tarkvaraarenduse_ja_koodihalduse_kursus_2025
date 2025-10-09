@@ -322,7 +322,10 @@ See päring tagastab 10 kõige kallimat toodet.
 
 ```sql
 -- kirjuta oma vastus siia
-
+SELECT *
+FROM sales.orders
+ORDER BY order_date DESC
+LIMIT 15;
 ```
 
 ---
