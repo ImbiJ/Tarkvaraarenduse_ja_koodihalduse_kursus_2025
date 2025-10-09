@@ -294,6 +294,7 @@ ORDER BY last_name ASC;
 
 ### LIMIT (piira tulemuste hulka)
 `LIMIT` piirab tagastatavate ridade arvu. See on kasulik, kui soovid vaadata ainult osa andmetest, näiteks esimesed 10 rida.
+`LIMIT`on ALATI kõige viimane
 
 ```sql
 SELECT * FROM tabel LIMIT 10;
@@ -332,6 +333,7 @@ LIMIT 15;
 
 ### WHERE (filtreerimine)
 `WHERE` klausliga saab seada tingimusi, millele andmed peavad vastama. See on kasulik, kui soovid päringus tagastada ainult teatud tingimustele vastavaid andmeid.
+`WHERE` on ´FROM`ja `LIMIT`vahel
 
 Näiteks, kui soovid valida kõik saarlased, kelle vanus on üle 20:
 
