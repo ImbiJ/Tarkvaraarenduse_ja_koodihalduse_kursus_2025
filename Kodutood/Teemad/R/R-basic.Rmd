@@ -1,0 +1,627 @@
+---
+title: "Sissejuhatus R-i"
+author: "Priit Adler & Nurlan Kerimov"
+date: "2025-09-01"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 80
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Sissejuhatus Rstudio kasutajaliidesesse
+
+Selle ja andmefailid leiad kursuse githubist.
+<https://github.com/adlerpriit/2025_taka_fall/tree/main/teemad/R>.
+
+RStudio on integreeritud arenduskeskkond (IDE), mis on loodud tõhusaks ja
+kasutajasõbralikuks R programmeerimiseks. Käivitamisel jaguneb RStudio
+kasutajaliides neljaks põhiosaks.
+
+-   Tekstiredaktor
+
+-   Konsool / Terminal / jne...
+
+-   Keskkond / Ajalugu / Ühendused / Git
+
+-   Failid / **Joonised** / Paketid / **Abi** / jne...
+
+Vaata: <https://rstudio.github.io/cheatsheets/html/rstudio-ide.html> põhjalikuma
+ülevaate saamiseks.
+
+## Sissejuhatus R-i
+
+R on populaarne avatud lähtekoodiga programmeerimiskeel ja keskkond
+statistiliseks andmetöötluseks ja graafikute loomiseks. Selles osas käsitleme
+R-i põhisisüntaksit, funktsioone, andmestruktuure ja andmete töötlemist
+tidyverse abil.
+
+R-i ja ggplot2 jätkukursus [R-visualisation.Rmd](R-visualisation.Rmd), on
+loogiline jätk peale käesoleva dokumendi läbimist.
+
+### R süntaks ja põhilised funktsioonid
+
+```{r}
+# Aritmeetilised tehted
+2 + 3
+4 * 5
+6 / 2 + 5 * 3
+```
+
+```{r}
+# Muutujad 
+x <- 10
+y <- 20
+x + y
+
+# kas (x <- 10) on sama mis (x = 10)
+```
+
+```{r}
+# Funktsioonid
+mean(c(1, 2, 3, 4, 5))
+max(c(1, 2, 3, 4, 5))
+# pea meeles 'c()' - ühendab väärtused vektoriks
+
+# funktsioon nimeliste argumentidega
+my_sum <- function(a, b=NULL) {
+  r = a + b
+  return(r)
+}
+my_sum(5, 7)
+```
+
+### Ülesanne: **Peo eelarve koostamine**
+
+Planeerid pidu ja vajad selleks eelarvet. Siin on kulude jaotus *(määrake
+väärtused)*:
+
+1.  Saali rent: 100€
+
+2.  Toit inimese kohta: 15€
+
+3.  Joogid inimese kohta: 5€
+
+4.  Meelelahutus: 50€
+
+Loo muutujad iga kulu jaoks *(määrake valem, nt* `y <- a + b`*)*:
+
+-   **`venue_cost`** saali rendi jaoks
+
+-   **`food_cost_per_person`** toidu jaoks inimese kohta
+
+-   **`drink_cost_per_person`** jookide jaoks inimese kohta
+
+-   **`entertainment_cost`** meelelahutuse jaoks
+
+-   **`number_of_people`** osalejate arv
+
+Kasuta õpitud aritmeetilisi tehteid, et vastata järgmistele küsimustele
+*(aritmeetika muutujatega)*:
+
+1.  Kui kutsud 10 inimest, kui palju maksab toit?
+
+2.  Kui kutsud 10 inimest, kui palju maksavad joogid?
+
+3.  Kui suur on kogu peo maksumus 10 osalejaga?
+
+Kirjuta funktsioon nimega **`total_party_cost`**, mis võtab sisendiks osalejate
+arvu ja tagastab kogu maksumuse. Testi funktsiooni erinevate osalejate arvudega,
+et näha, kuidas kulu muutub.
+
+Vihje: Funktsioon peab arvestama kõiki kulusid: saal, toit, joogid ja
+meelelahutus. Arvesta, et "scope" töötab samuti nagu `pythonis`.
+
+```{r}
+
+total_party_cost <- function(n=10) { # n - osalejate arv
+  
+}
+
+```
+
+### Andmestruktuurid R-is
+
+R-is on mitmeid andmestruktuure andmete organiseerimiseks ja salvestamiseks.
+Nende mõistmine on oluline tõhusaks andmetöötluseks ja analüüsiks.
+
+1.  **vector**: Ühemõõtmeline elementide massiiv, kus kõik elemendid on sama
+    tüüpi. Vektoreid kasutatakse sageli aritmeetilisteks teheteks ja väärtuste
+    järjestamiseks.
+
+```{r}
+v <- c(1, 2, 3, 4, 5)
+print(v)
+
+# mixed_v = c(1, "õun", TRUE)
+# print(mixed_v)
+```
+
+2.  **matrix**: Kahemõõtmeline elementide massiiv, mis on organiseeritud
+    ridadeks ja veergudeks ning kõik elemendid on sama tüüpi. Maatrikseid
+    kasutatakse lineaaralgebra teheteks ja tabelandmete salvestamiseks
+    fikseeritud ridade ja veergude arvuga.
+
+```{r}
+m <- matrix(1:9, nrow = 3, ncol = 3)
+print(m)
+```
+
+3.  **data.frame**: Kahemõõtmeline tabel, kus iga veerg võib olla erinevat
+    tüüpi. `data.frame` on kõige levinum struktuur tabelandmete salvestamiseks
+    ja töötlemiseks R-is, eriti statistilises analüüsis.
+
+```{r}
+df <- data.frame(
+  name = c("Alice", "Bob", "Charlie"),
+  age = c(25, 30, 35),
+  city = c("New York", "San Francisco", "Los Angeles")
+)
+print(df)
+```
+
+4.  **list**: Paindlik andmestruktuur, mis võib sisaldada erinevat tüüpi ja
+    struktuuriga elemente, sh vektoreid, maatrikseid, `data.frame`-e ja teisi
+    liste. Listid sobivad hierarhiliste või pesastatud andmete
+    organiseerimiseks.
+
+```{r}
+l <- list(
+  name = "Alice",
+  age = c(25, 30),
+  city = c("New York", "San Francisco", "Los Angeles"),
+  last_df = df
+)
+print(l)
+```
+
+Igal andmestruktuuril on oma tugevused ja kasutusalad, õige valik sõltub
+konkreetse andmetöötluse ja analüüsi vajadustest.
+
+### **Ülesanne: Õpilaste andmete organiseerimine**
+
+Sul on andmed õpilaste kohta kolmest klassist: Bioloogia, Keemia ja Füüsika. Iga
+õpilase kohta on nimi, vanus ja tulemus.
+
+1.  **vector**: Loo kolm vektorit, mis esindavad Bioloogia klassi õpilaste
+    nimesid, vanuseid ja tulemusi:
+
+    Nimede vektor: "Anna", "Mike", "Luis"
+
+    Vanused: 20, 21, 19
+
+    Tulemused: 85, 78, 90
+
+2.  **matrix**: Eelda, et kõigi kolme klassi (Bioloogia, Keemia, Füüsika)
+    õpilaste vanused ja tulemused on järgmised *(vaata abi* `matrix`*)*:
+
+    Vanused: 20, 21, 19, 22, 20, 23, 24, 22, 25
+
+    Tulemused: 85, 78, 90, 88, 76, 95, 87, 80, 92
+
+    Loo maatriks, kus esimeses veerus on vanused ja teises veerus tulemused.
+    Esimesed kolm rida on Bioloogia, järgmised kolm Keemia ja viimased kolm
+    Füüsika õpilased.
+
+3.  **data.frame**: Loo `data.frame` nelja veeruga: nimi, vanus, tulemus ja
+    klass. Kasuta ülaltoodud andmeid ning lisa:
+
+    Nimede vektor: "Anna", "Mike", "Luis", "Sam", "Ella", "Ravi", "Mia", "Jack",
+    "Olivia"
+
+    Klassid: "Bioloogia", "Bioloogia", "Bioloogia", "Keemia", "Keemia",
+    "Keemia", "Füüsika", "Füüsika", "Füüsika"
+
+4.  **list**: Loo list õpilasele nimega "Anna", mis sisaldab eraldi vektoreid
+    tema nime, vanuse, tulemuse ja klassi kohta.
+
+5.  **Analüüs**:
+
+    -   Kasutades data.frame-i, filtreeri välja kõik õpilased, kelle tulemus on
+        üle 85, ja väljasta nende nimed ja klassid.
+
+    -   Kasutades maatriksit, arvuta iga klassi õpilaste keskmine tulemus.
+
+```{r}
+# Lisa siia vastuste ja lahenduste kood
+
+```
+
+## Tidyverse laadimine
+
+```{r message=FALSE}
+# Paigalda tidyverse, kui see pole veel paigaldatud
+if (!requireNamespace("tidyverse", quietly = TRUE)) {
+  install.packages("tidyverse")
+}
+
+# Laadi tidyverse
+library(tidyverse)
+```
+
+## Andmete lugemine failist
+
+R toetab mitmeid failiformaate andmete lugemiseks ja salvestamiseks. Levinumad
+formaadid:
+
+-   CSV (komaga eraldatud väärtused)
+-   TSV (tabiga eraldatud väärtused)
+-   Excel (XLS, XLSX)
+-   .. ja mõned teised
+
+`tidyverse` paketid, nagu `readr` ja `readxl`, pakuvad funktsioone paljude
+formaatide lugemiseks. Siin keskendume CSV ja TSV failidele.
+
+### CSV andmete lugemine
+
+```{r eval=FALSE}
+# Loe andmed CSV failist
+
+data_csv <- read_csv("../../data/Islander_data.csv")
+
+# Kuvab esimesed read
+data_csv
+```
+
+### TSV andmete lugemine
+
+Eemalda `#` teiselt ja viimaselt realt, et näidet käivitada
+
+```{r}
+# Loe andmed TSV failist
+# data_tsv <- read_tsv("data/Islander_data.tsv")
+
+# Kuvab esimesed read
+# head(data_tsv)
+```
+
+### Exceli andmete lugemine
+
+```{r eval=FALSE}
+# Paigalda readxl, kui see pole veel paigaldatud
+if (!requireNamespace("readxl", quietly = TRUE)) {
+  install.packages("readxl")
+}
+
+# Laadi readxl
+library(readxl)
+```
+
+Eemalda `#` teiselt ja viimaselt realt, et näidet käivitada
+
+```{r}
+# Loe andmed Exceli failist (pane tähele ::, miks see seal on?)
+data_excel <- readxl::read_excel("../../data/Islander_data.xlsx", sheet = "Sheet1")
+
+# Kuvab esimesed read
+head(data_excel)
+```
+
+Exceli faili puhul tuleb kindlasti määrata õige lehe nimi `sheet` parameetriga
+funktsioonis `read_excel()`.
+
+### Ülesanne:
+
+Leia paremal asuvast `Abi` paneelist `read_tsv` funktsioon. Mitu erinevat
+käsurea argumenti on `read_tsv` funktsioonil defineeritud?
+
+## Andmete kõrgetasemeline ülevaade tidyverse toruga (pipe, `%>%`)
+
+Tidyverse toru-operaator, mida tähistab `%>%` \<ctrl+shift+M\>, võimaldavad
+mitut funktsiooni järjestada selgelt ja loetavalt. Toru-operaator võtab ühe
+funktsiooni väljundi ja annab selle järgmise funktsiooni sisendiks, muutes
+andmetöötluse järjestuse lihtsasti jälgitavaks.
+
+```{r include=FALSE}
+# Loome näidisandmestiku
+set.seed(42)
+data <- tibble(
+  YourCategory = factor(sample(LETTERS[1:5], 100, replace = TRUE)),
+  YourVariable = rnorm(100, mean = 50, sd = 10),
+  YourOtherVariable = rnorm(100, mean = 20, sd = 2)
+)
+data
+```
+
+### Olulised dplyr funktsioonid
+
+Siin on mõned kõige levinumad ja kasulikumad funktsioonid paketist `dplyr`.
+Kasutame näidisandmestikku `data` nende illustreerimiseks.
+
+#### `filter()` - Ridade valimine tingimuse alusel
+
+`filter()` võimaldab `data.frame`-i ridade alamhulka valida, jättes alles read,
+mis vastavad tingimusele.
+
+```{r}
+# Jäta alles read, kus YourCategory on "A"
+data %>% 
+  filter(YourCategory == "A") %>%
+  head(n=10)
+```
+
+#### `mutate()` - Uute veergude lisamine
+
+`mutate()` lisab uusi veerge, mis on arvutatud olemasolevate veergude põhjal.
+Saab kasutada ka olemasolevate veergude muutmiseks.
+
+```{r}
+# Loo uus veerg 'YourVariable_plus_100'
+data %>%
+  mutate(YourVariable_plus_100 = YourVariable + 100) %>%
+  head()
+```
+
+#### `select()` - Veergude valimine nime järgi
+
+`select()` võimaldab valida `data.frame`-ist kindlad veerud.
+
+```{r}
+# Vali ainult YourCategory ja YourVariable veerud
+data %>%
+  select(YourCategory, YourVariable) %>%
+  head()
+```
+
+#### `arrange()` - Ridade ümberjärjestamine
+
+`arrange()` töötab sarnaselt `filter()`-ile, kuid valimise asemel muudab ridade
+järjekorda.
+
+```{r}
+# Järjesta andmed YourVariable järgi kasvavalt
+data %>%
+  arrange(desc(YourCategory), YourVariable) %>%
+  head()
+
+# Järjesta kahanevalt
+data %>%
+  arrange(desc(YourVariable)) %>%
+  head()
+```
+
+#### `rename()` - Veergude ümbernimetamine
+
+`rename()` abil saab veergude nimesid muuta. Süntaks on `uus_nimi = vana_nimi`.
+
+```{r}
+# Nimeta YourCategory ümber Category-ks
+data %>%
+  rename(Category = YourCategory) %>%
+  head()
+```
+
+#### `group_by()` ja `summarize()` - Rühmitatud andmetega töötamine
+
+Järgmises näites kasutame toru, et teha järjestikuseid toiminguid: 1. Rühmitame
+andmed kategooria järgi (`group_by`) 2. Arvutame iga rühma kohta kokkuvõtlikud
+näitajad (`summarize`) 3. Sorteerime tulemused kindla näitaja järgi (`arrange`)
+
+`group_by()` abil saab `data.frame`-i rühmitada ühe või mitme muutuja järgi.
+Rühmitatud `data.frame`-ga tehtavad toimingud rakenduvad igale rühmale eraldi.
+See on eriti võimas koos `summarize()`-ga.
+
+`summarize()` koondab `data.frame`-i ühe rea kokkuvõtlike näitajatena.
+Rühmitatud `data.frame`-i puhul arvutab iga rühma kohta eraldi.
+
+Näiteks arvutame iga `YourCategory` kohta `YourVariable` keskmise ja vaatluste
+arvu.
+
+```{r}
+# Andmete kokkuvõte
+data_summary <- data %>% 
+  group_by(YourCategory) %>%
+  summarize(
+    mean_value = mean(YourVariable, na.rm = TRUE),
+    n = n()
+  ) %>%
+  arrange(desc(mean_value))
+
+head(data_summary)
+```
+
+Ülaltoodud koodis asenda `YourCategory` ja `YourVariable` oma andmestiku
+veergude nimedega. See annab kõrgetasemelise ülevaate, rühmitades andmed ja
+arvutades keskmise. Torud muudavad andmetöötluse järjestuse hästi jälgitavaks.
+
+```{r}
+# Uus veerg mutate ja case_when abil
+# pane tähele, et kirjutame (uuendame) originaalandmestikku
+data <- data %>%
+  mutate(
+    HalfOfOtherVariabel = YourOtherVariable / 2, # lisame uue veeru olemasolevate põhjal
+    YourGroup = case_when(
+      YourCategory %in% c("A", "B") ~ "Grupp 1", # ühendame A ja B Grupp 1-ks
+      YourCategory %in% c("C", "D") ~ "Grupp 2", # ühendame C ja D Grupp 2-ks
+      TRUE ~ "Muu"                              # case_when vajab vaikimisi väärtust
+    ),
+    NewVariable = case_when(
+      YourVariable > 60 ~ YourVariable * 2,  # Korrutame üle 60 väärtused kahega
+      YourVariable < 40 ~ YourVariable / 2,  # Jagame alla 40 väärtused kahega
+      TRUE ~ YourVariable                    # Muud jätame samaks
+    )
+  )
+head(data)
+```
+
+### Andmete ümberkujundamine `pivot_wider()` ja `pivot_longer()` abil
+
+Andmete ümberkujundamine on tavaline analüüsitöö. `tidyr` paketis on kaks
+võimsat funktsiooni: `pivot_longer()` ja `pivot_wider()`. Need võimaldavad muuta
+andmete paigutust "pika" ja "laia" formaadi vahel.
+
+```{r}
+# Kasutame andmestikku fish_encounters
+fish_encounters
+```
+
+#### `pivot_wider()` - Pikast laiaks
+
+`pivot_wider()` muudab andmed "laiemaks", suurendades veergude arvu ja
+vähendades ridade arvu. Kasulik, kui üks vaatlus on mitmes reas.
+
+Näites loome iga jaama kohta eraldi veeru. `names_from = station` määrab uute
+veergude nimed ja `values_from = seen` täidab veerud väärtustega.
+
+```{r}
+fish_encounters %>%
+  pivot_wider(names_from = station, values_from = seen)
+```
+
+Tulemus sisaldab `NA` väärtusi, kuna iga kala pole igas jaamas nähtud. Saame
+asendada `NA` väärtused nulliga `values_fill` abil.
+
+```{r}
+fish_encounters %>%
+  pivot_wider(names_from = station, values_from = seen, values_fill = 0)
+```
+
+Vaata <https://tidyr.tidyverse.org/reference/pivot_wider.html> lisainfo
+saamiseks
+
+#### `pivot_longer()` - Laiast pikaks
+
+`pivot_longer()` muudab andmed "pikemaks", suurendades ridade arvu ja vähendades
+veergude arvu. Kasulik, kui vaatlus on eraldi veergudes ja soovid need koondada
+võtme-väärtuse paaridena.
+
+```{r}
+# Kasutame laia andmestikku relig_income
+relig_income
+```
+
+`relig_income` andmestikus on tulunivood veergude nimedena. Saame kõik veerud
+peale `religion` muuta pikaks formaadiks. `!religion` valib kõik veerud peale
+`religion`. `names_to = "income"` loob uue veeru nimega "income" veerunimede
+jaoks, `values_to = "count"` salvestab väärtused.
+
+```{r}
+relig_income %>%
+  pivot_longer(!religion, names_to = "income", values_to = "count")
+
+# vt https://tidyr.tidyverse.org/reference/pivot_longer.html lisainfo saamiseks
+```
+
+### Ülesanne:
+
+**Ülesanne: Uimastite mõju mälu testile**
+
+Kasutades andmestikku "Memory Test on Drugged Islanders Data", analüüsi
+erinevate ravimite ja nende dooside mõju mälule.
+
+1.  **Andmete uurimine**:
+
+    -   Kuva andmestiku esimesed 10 rida.
+
+    -   Arvuta mälu skooride üldine keskmine enne ja pärast ravimi manustamist.
+
+2.  **Ravimite analüüs**:
+
+    -   Kasuta tidyverse toru ja ülaltoodud näidet, rühmita (`group_by`) andmed
+        **`Drug`** veeru järgi.
+
+    -   Iga ravimi kohta arvuta:
+
+        1.  Keskmine **`Diff`** mälu skoorides.
+
+        2.  Osalejate koguarv, kes seda ravimit võtsid (**`n()`**).
+
+    -   Sorteeri tulemused keskmise **`Diff`** järgi kahanevalt.
+
+3.  **Doosi analüüs**:
+
+    -   Rühmitada andmed nii **`Drug`** kui ka **`dosage`** järgi.
+
+    -   Iga ravimi ja doosi kombinatsiooni kohta arvuta keskmine **`Diff`** mälu
+        skoorides.
+
+    -   Kuvab tulemused, sorteerides esmalt **`Drug`** ja seejärel keskmise
+        **`Diff`** järgi kahanevalt.
+
+4.  **Vanuserühma analüüs**:
+
+    -   Loo uus veerg **`age_group`**. Kategoriseeri osalejad: "Noor" (alla 30),
+        "Keskealine" (30-50), "Seenior" (üle 50). (*vihje:* `case_when`)
+
+    -   Rühmitada andmed **`age_group`** ja **`Drug`** järgi.
+
+    -   Arvuta iga vanuserühma ja ravimi kombinatsiooni kohta keskmine
+        **`Diff`** mälu skoorides.
+
+    -   Kuvab tulemused ja proovi järeldada, kas vanusel on mõju ravimi
+        tõhususele.
+
+5.  **Õnnelik/Kurb rühma analüüs**:
+
+    -   Rühmitada andmed **`happy/sad group`** veeru järgi.
+
+    -   Iga emotsioonirühma kohta arvuta keskmine **`Diff`** mälu skoorides enne
+        ja pärast ravimi manustamist.
+
+    -   Võrdle tulemusi. Kas emotsiooni priming mõjutab mälu skoori?
+
+    Rohkem võimalusi leiad
+    [data-wrangling-cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+```{r}
+
+```
+
+# Andmestiku kohta
+
+Näidetes kasutame
+[Kaggle](https://www.kaggle.com/datasets/steveahn/memory-test-on-drugged-islanders-data?resource=download)
+andmestikku "**Memory Test on Drugged Islanders Data**".
+
+Andmestiku kirjeldus
+
+:   Eksperiment uuris ärevusvastaste ravimite mõju mälulisele meenutusele
+    olukorras, kus katsealuseid suunati meenutama kas rõõmsaid või kurbi
+    mälestusi. Katse viidi läbi simuleeritud osalejatega (nn „Islander’id“), kes
+    matkivad inimkäitumist väliste mõjutuste suhtes.
+
+    ### Ravimid ja doosid
+
+    Uuritavad rühmad said erinevaid ravimeid või platseebot, igaüks kolmes
+    doosivahemikus:
+
+    -   **A – Alprazolam (Xanax, pikaajalisem toime):** 1 mg, 3 mg, 5 mg
+
+    -   **T – Triazolam (Halcion, lühiajaline toime):** 0.25 mg, 0.5 mg, 0.75 mg
+
+    -   **S – Platseebo (suhkrutablett):** 1, 2 või 3 tabletti
+
+    Doosid valiti nii, et need oleksid võrreldavad (1:1 suhe).
+
+    ### Katse disain
+
+    -   Rõõmsaid või kurbi mälestusi meenutati 10 minutit enne testi.
+
+    -   Osalejad testiti iga päev ühe nädala jooksul, et jäljendada sõltuvuse
+        kujunemist.
+
+    -   Kaasati vähemalt 25-aastased mõlema soo isikud, kuna selleks vanuseks on
+        eesajukoor (prefrontaalne korteks, mis vastutab kõrgema taseme tunnetuse
+        ja mälu üle) täielikult välja arenenud.
+
+    ### Teaduslik taust
+
+    -   **Bensodiasepiinid** (nt Alprazolam, Triazolam) võivad pikaajalisel
+        kasutamisel pärssida sünaptilist plastilisust (LTP), metakognitsiooni ja
+        mälu meenutamist.
+
+    -   **Rõõmsad mälestused** seostuvad aju striatumi tugevama aktiveerumisega.
+
+    -   **Kurvad mälestused** toetavad paremat meenutust evolutsioonilistel
+        põhjustel, samas kui rõõmsad mälestused on altimad valemälestustele.
+
+Lihtsaim viis andmete lugemiseks on kasutada `read_csv` käsku:
+
+```{r}
+Isd <- read_csv('../../data/Islander_data.csv')
+
+Isd
+```

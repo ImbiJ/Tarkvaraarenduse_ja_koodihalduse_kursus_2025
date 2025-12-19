@@ -8,7 +8,7 @@ print("Docker käivitamine õnnestus!")
 # tõmba ubuntu image
 docker pull ubuntu
 
-# käivita
+# käiita
 docker run -it ubuntu bash
 print("Ubuntu konteiner on käivitatud!")
 
