@@ -1,0 +1,35 @@
+FROM python:3.11-slim # Määrab aluspildi, millest konteiner ehitatakse
+COPY app.py /app/app.py
+WORKDIR /app # Seadistab töökataloogi konteineris, kus kõik järgmised käsud toimuvad.
+CMD ["python", "app.py"] # Määrab, milline käsk konteineri käivitamisel automaatselt käivitub.
+        # Oluline: konteiner võib CMD-iga ainult ühe käsu automaatselt käivitada.
+
+#================= Veel Dockerfile käske ==================       
+# COPY requirements.txt . # Vasakul on sinu arvutis fail, paremal konteineris asukoht
+# RUN pip install --no-cache-dir -r requirements.txt # Käivitab käske konteineri ehitamise ajal (nt tarkvara installimine).
+# ENV DEBUG=True # Määrab keskkonnamuutuja konteineris
+# EXPOSE 5000 # Näitab, millist porti konteiner kasutab (see ei ava porti automaatselt, ainult dokumenteerib).
+# ENTRYPOINT ["python", "Kodutoo_Docker.py"] # Sarnane CMD-ile, aga veidi tugevam: käivitab alati määratud käsu, CMD saab lisaks argumente anda.
+# ARG VERSION=1.0 # Ehitusaja muutuja, mida saab kasutada RUN käskudes.
+# VOLUME /app/data # Määrab konteineris katalooge, mida saab hostiga jagada.
+
+#================= Täiendavad paketid =================
+
+# Python sõltuvused on tavaliselt hallatud requirements.txt faili kaudu. 
+# Kui soovid süsteemi täiendavaid pakette lisada, siis tee seda Dockerfile kaudu.
+    # Näiteks, et lisada curl ja git:
+    # RUN apt-get update && apt-get install -y curl git 
+
+#================== Märkused ===================
+
+# Iga käsk Dockerfile-s loob uue kihi konteineri failisüsteemis.
+# Seega on hea tava grupeerida käsud, et vähendada kihtide arvu ja optimeerida konteineri suurust.
+# Näiteks, selle asemel, et teha mitu RUN käsku, grupeeri need üheks:
+# RUN apt-get update && apt-get install -y package1 package2 && rm -rf /var/lib/apt/lists/*
+
+# Pärast Dockerfile loomist, ehita konteiner järgmise käsuga terminalis:
+# docker build -t minu_python_app .
+
+
+
+

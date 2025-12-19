@@ -38,6 +38,7 @@ Väljund:
 Väljund: Tere Dockerist!
 
 5) Tõstsin failid githubi:
+* git remote add origin https://github.com/ImbiJ/Tarkvaraarenduse_ja_koodihalduse_kursus_2025.git
 * git init
 * git status
 * git add Dockerfile app.py README_DOCKER.md
